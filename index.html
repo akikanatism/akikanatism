@@ -1,45 +1,445 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>My Translations</title>
-
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Ensemble Stars Translations | yourname</title>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=DM+Mono:wght@300;400&display=swap" rel="stylesheet"/>
   <style>
+    :root {
+      --bg: #0d0c10;
+      --surface: #15131a;
+      --border: #2a2535;
+      --accent: #c8a8e0;
+      --accent2: #e0b8a8;
+      --text: #e8e2f0;
+      --muted: #7a7090;
+      --card-hover: #1e1b26;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html { scroll-behavior: smooth; }
+
     body {
-      font-family: Arial, sans-serif;
-      background: #fafafa;
-      color: #222;
-      max-width: 700px;
-      margin: 60px auto;
-      line-height: 1.6;
+      font-family: 'Cormorant Garamond', Georgia, serif;
+      background: var(--bg);
+      color: var(--text);
+      min-height: 100vh;
+      line-height: 1.7;
     }
 
-    h1 {
-      font-size: 28px;
-      margin-bottom: 20px;
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.03'/%3E%3C/svg%3E");
+      pointer-events: none;
+      z-index: 0;
+      opacity: 0.4;
     }
 
-    a {
+    .page-wrap {
+      position: relative;
+      z-index: 1;
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 0 2rem 6rem;
+    }
+
+    header {
+      text-align: center;
+      padding: 5rem 0 3rem;
+      border-bottom: 1px solid var(--border);
+      margin-bottom: 3.5rem;
+      position: relative;
+    }
+
+    header::after {
+      content: '✦ ✧ ✦';
       display: block;
-      padding: 10px 0;
-      text-decoration: none;
-      color: #2a6df4;
-      border-bottom: 1px solid #ddd;
+      color: var(--muted);
+      font-size: 0.75rem;
+      letter-spacing: 0.5em;
+      margin-top: 2rem;
     }
 
-    a:hover {
-      color: #000;
+    .site-logo {
+      font-size: clamp(1.8rem, 5vw, 2.8rem);
+      font-weight: 300;
+      letter-spacing: 0.08em;
+      color: var(--text);
+      text-decoration: none;
+    }
+
+    .site-logo span { color: var(--accent); }
+
+    .site-subtitle {
+      margin-top: 0.5rem;
+      font-size: 0.8rem;
+      font-family: 'DM Mono', monospace;
+      color: var(--muted);
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+    }
+
+    .nav-links {
+      margin-top: 1.5rem;
+      display: flex;
+      gap: 1.5rem;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+
+    .nav-links a {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.7rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--muted);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+
+    .nav-links a:hover { color: var(--accent); }
+
+    .tos-box {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-left: 3px solid var(--accent);
+      padding: 1.5rem 1.8rem;
+      margin-bottom: 4rem;
+      font-size: 0.95rem;
+      color: #bfb8d0;
+    }
+
+    .tos-box h2 {
+      font-size: 0.7rem;
+      font-family: 'DM Mono', monospace;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 0.8rem;
+    }
+
+    .tos-box p { margin-bottom: 0.5rem; }
+    .tos-box p:last-child { margin-bottom: 0; }
+    .tos-box strong { color: var(--text); }
+
+    section { margin-bottom: 4rem; }
+
+    .section-header {
+      display: flex;
+      align-items: baseline;
+      gap: 1rem;
+      margin-bottom: 1.8rem;
+      padding-bottom: 0.8rem;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .section-header h2 {
+      font-size: clamp(1.1rem, 3vw, 1.5rem);
+      font-weight: 400;
+      letter-spacing: 0.12em;
+      color: var(--text);
+    }
+
+    .section-header .count {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.65rem;
+      color: var(--muted);
+      letter-spacing: 0.1em;
+    }
+
+    .card-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(170px, 1fr));
+      gap: 1.2rem;
+    }
+
+    .card {
+      display: block;
+      text-decoration: none;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      overflow: hidden;
+      transition: transform 0.25s ease, border-color 0.25s ease, background 0.25s ease;
+      position: relative;
+    }
+
+    .card:hover {
+      transform: translateY(-3px);
+      border-color: var(--accent);
+      background: var(--card-hover);
+    }
+
+    .card:hover .card-overlay { opacity: 1; }
+
+    .card-img-wrap {
+      position: relative;
+      aspect-ratio: 3/4;
+      overflow: hidden;
+      background: #1a1724;
+    }
+
+    .card-img-wrap img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      transition: transform 0.4s ease;
+      filter: saturate(0.85);
+    }
+
+    .card:hover .card-img-wrap img {
+      transform: scale(1.04);
+      filter: saturate(1);
+    }
+
+    .card-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to top, rgba(200, 168, 224, 0.15) 0%, transparent 60%);
+      opacity: 0;
+      transition: opacity 0.3s;
+      pointer-events: none;
+    }
+
+    .card-label {
+      padding: 0.7rem 0.75rem 0.8rem;
+      font-size: 0.78rem;
+      font-weight: 600;
+      letter-spacing: 0.03em;
+      color: var(--text);
+      line-height: 1.3;
+    }
+
+    .badge {
+      display: inline-block;
+      font-family: 'DM Mono', monospace;
+      font-size: 0.55rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      padding: 0.15em 0.5em;
+      margin-top: 0.4rem;
+      border-radius: 2px;
+    }
+
+    .badge-complete { background: rgba(168, 224, 180, 0.15); color: #a8e0b4; border: 1px solid rgba(168, 224, 180, 0.25); }
+    .badge-wip      { background: rgba(224, 184, 168, 0.15); color: var(--accent2); border: 1px solid rgba(224, 184, 168, 0.25); }
+    .badge-collab   { background: rgba(168, 200, 224, 0.15); color: #a8c8e0; border: 1px solid rgba(168, 200, 224, 0.25); }
+
+    footer {
+      text-align: center;
+      padding-top: 3rem;
+      border-top: 1px solid var(--border);
+      font-family: 'DM Mono', monospace;
+      font-size: 0.65rem;
+      color: var(--muted);
+      letter-spacing: 0.15em;
+    }
+
+    footer a { color: var(--accent); text-decoration: none; }
+
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(18px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    .page-wrap > * { animation: fadeUp 0.6s ease both; }
+    header { animation-delay: 0.05s; }
+    .tos-box { animation-delay: 0.15s; }
+    section:nth-child(1) { animation-delay: 0.2s; }
+    section:nth-child(2) { animation-delay: 0.25s; }
+    section:nth-child(3) { animation-delay: 0.3s; }
+    section:nth-child(4) { animation-delay: 0.35s; }
+
+    @media (max-width: 500px) {
+      .page-wrap { padding: 0 1rem 4rem; }
+      .card-grid { grid-template-columns: repeat(auto-fill, minmax(130px, 1fr)); gap: 0.9rem; }
     }
   </style>
 </head>
-
 <body>
+<div class="page-wrap">
 
-<h1>My Translations</h1>
+  <header>
+    <a href="#" class="site-logo">✦ <span>yourname</span></a>
+    <p class="site-subtitle">Ensemble Stars Translations</p>
+    <nav class="nav-links">
+      <a href="#">Home</a>
+      <a href="#">Twitter / X</a>
+      <a href="#">Tumblr</a>
+      <a href="#">Ko-fi</a>
+      <a href="mailto:you@email.com">Contact</a>
+    </nav>
+  </header>
 
-<a href="page1.html">Translation 1</a>
-<a href="page2.html">Translation 2</a>
-<a href="page3.html">Translation 3</a>
+  <div class="tos-box">
+    <h2>Terms of Service</h2>
+    <p>Feel free to screenshot <strong>proofread</strong> translations; credit or linking back to the original translation is appreciated.</p>
+    <p>You can use my translations for quotebots <strong>as long as</strong> (a) you reach out to me, (b) you credit me, and (c) the quotes are from <strong>proofread</strong> translations.</p>
+    <p>Do not use my translations in for-profit work or training AI datasets. For any translation errors, feel free to reach out.</p>
+  </div>
 
+  <section id="events">
+    <div class="section-header">
+      <h2>EVENT STORIES</h2>
+      <span class="count">— 4 entries</span>
+    </div>
+    <div class="card-grid">
+
+      <a href="#" class="card">
+        <div class="card-img-wrap">
+          <img src="https://placehold.co/300x400/1a1724/c8a8e0?text=VS+Audience" alt="VS Audience"/>
+          <div class="card-overlay"></div>
+        </div>
+        <div class="card-label">VS AUDIENCE<br/><span class="badge badge-complete">Complete</span></div>
+      </a>
+
+      <a href="#" class="card">
+        <div class="card-img-wrap">
+          <img src="https://placehold.co/300x400/1a1724/e0b8a8?text=Final+Ceremony" alt="Final Ceremony"/>
+          <div class="card-overlay"></div>
+        </div>
+        <div class="card-label">Final Ceremony<br/><span class="badge badge-complete">Complete</span></div>
+      </a>
+
+      <a href="#" class="card">
+        <div class="card-img-wrap">
+          <img src="https://placehold.co/300x400/1a1724/a8c8e0?text=BUTTERFLY" alt="BUTTERFLY"/>
+          <div class="card-overlay"></div>
+        </div>
+        <div class="card-label">BUTTERFLY<br/><span class="badge badge-complete">Complete</span></div>
+      </a>
+
+      <a href="#" class="card">
+        <div class="card-img-wrap">
+          <img src="https://placehold.co/300x400/1a1724/e0b8a8?text=Opera" alt="Opera"/>
+          <div class="card-overlay"></div>
+        </div>
+        <div class="card-label">Opera<br/><span class="badge badge-wip">WIP</span></div>
+      </a>
+
+    </div>
+  </section>
+
+  <section id="scouts">
+    <div class="section-header">
+      <h2>SCOUT STORIES</h2>
+      <span class="count">— 4 entries</span>
+    </div>
+    <div class="card-grid">
+
+      <a href="#" class="card">
+        <div class="card-img-wrap">
+          <img src="https://placehold.co/300x400/1a1724/c8a8e0?text=Onigashima" alt="Onigashima"/>
+          <div class="card-overlay"></div>
+        </div>
+        <div class="card-label">Onigashima<br/><span class="badge badge-complete">Complete</span></div>
+      </a>
+
+      <a href="#" class="card">
+        <div class="card-img-wrap">
+          <img src="https://placehold.co/300x400/1a1724/a8c8e0?text=Hanafuda" alt="Hanafuda"/>
+          <div class="card-overlay"></div>
+        </div>
+        <div class="card-label">Hanafuda<br/><span class="badge badge-complete">Complete</span></div>
+      </a>
+
+      <a href="#" class="card">
+        <div class="card-img-wrap">
+          <img src="https://placehold.co/300x400/1a1724/e0b8a8?text=Air+Ride" alt="Air Ride"/>
+          <div class="card-overlay"></div>
+        </div>
+        <div class="card-label">Air Ride<br/><span class="badge badge-collab">Collab</span></div>
+      </a>
+
+      <a href="#" class="card">
+        <div class="card-img-wrap">
+          <img src="https://placehold.co/300x400/1a1724/a8e0b4?text=Music+Box" alt="Music Box"/>
+          <div class="card-overlay"></div>
+        </div>
+        <div class="card-label">Music Box<br/><span class="badge badge-wip">WIP</span></div>
+      </a>
+
+    </div>
+  </section>
+
+  <section id="idols">
+    <div class="section-header">
+      <h2>IDOL STORIES</h2>
+      <span class="count">— 3 entries</span>
+    </div>
+    <div class="card-grid">
+
+      <a href="#" class="card">
+        <div class="card-img-wrap">
+          <img src="https://placehold.co/300x400/1a1724/c8a8e0?text=Nice+Jizo" alt="Nice Jizo"/>
+          <div class="card-overlay"></div>
+        </div>
+        <div class="card-label">Nice Jizo<br/><span class="badge badge-complete">Complete</span></div>
+      </a>
+
+      <a href="#" class="card">
+        <div class="card-img-wrap">
+          <img src="https://placehold.co/300x400/1a1724/a8c8e0?text=Tea+Fight" alt="Tea Fight!"/>
+          <div class="card-overlay"></div>
+        </div>
+        <div class="card-label">Tea Fight!<br/><span class="badge badge-complete">Complete</span></div>
+      </a>
+
+      <a href="#" class="card">
+        <div class="card-img-wrap">
+          <img src="https://placehold.co/300x400/1a1724/e0b8a8?text=Tiny+Ocean" alt="Tiny Ocean"/>
+          <div class="card-overlay"></div>
+        </div>
+        <div class="card-label">Tiny Ocean<br/><span class="badge badge-wip">WIP</span></div>
+      </a>
+
+    </div>
+  </section>
+
+  <section id="songs">
+    <div class="section-header">
+      <h2>SONG TRANSLATIONS</h2>
+      <span class="count">— 3 entries</span>
+    </div>
+    <div class="card-grid">
+
+      <a href="#" class="card">
+        <div class="card-img-wrap">
+          <img src="https://placehold.co/300x400/1a1724/c8a8e0?text=it's+(k)not+luv?" alt="it's (k)not luv?"/>
+          <div class="card-overlay"></div>
+        </div>
+        <div class="card-label">it's (k)not luv?<br/><span class="badge badge-complete">Complete</span></div>
+      </a>
+
+      <a href="#" class="card">
+        <div class="card-img-wrap">
+          <img src="https://placehold.co/300x400/1a1724/a8c8e0?text=Be+My+Princess" alt="Be My Princess"/>
+          <div class="card-overlay"></div>
+        </div>
+        <div class="card-label">Be My Princess<br/><span class="badge badge-complete">Complete</span></div>
+      </a>
+
+      <a href="#" class="card">
+        <div class="card-img-wrap">
+          <img src="https://placehold.co/300x400/1a1724/e0b8a8?text=Longing+Identity" alt="Longing Identity"/>
+          <div class="card-overlay"></div>
+        </div>
+        <div class="card-label">Longing Identity<br/><span class="badge badge-complete">Complete</span></div>
+      </a>
+
+    </div>
+  </section>
+
+  <footer>
+    <p>✦ yourname · Ensemble Stars Translations ✦</p>
+    <p style="margin-top:0.5rem;">do not use my translations in for-profit work or AI training datasets</p>
+    <p style="margin-top:0.5rem;"><a href="mailto:you@email.com">you@email.com</a></p>
+  </footer>
+
+</div>
 </body>
 </html>
